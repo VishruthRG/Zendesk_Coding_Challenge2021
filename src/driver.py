@@ -133,7 +133,7 @@ def get_ticket_by_id(ticket_id):
         return False
     
     print_ticket_by_id(found, resp)
-    if (len(found) == 0):
+    if (len(not_found) != 0):
         print("Ticket data for the IDs in", not_found, "were not found")
     print()
     return True

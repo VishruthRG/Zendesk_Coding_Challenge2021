@@ -1,8 +1,8 @@
 import driver as driver
-
+import API_endpoints as api
 while (True):
     print("Zendesk ticket viewer main menu")
-    print("Enter 1 to: View All Tickets of user zccvishruth")
+    print("Enter 1 to: View All Tickets of user",api.SUBDOMAIN)
     print("Enter 2 to: View Selected Tickets by ID")
     print("Enter any key to: Quit Ticket Viewer")
     print("==================================================")
@@ -15,5 +15,5 @@ while (True):
         ticket_id = input("Please enter ticket id to view details ")
         driver.get_ticket_by_id(ticket_id)   
     else:
-        print("Thank you for using Vishruth's Ticket Viewer")
+        print("Thank you for using Ticket Viewer")
         break
