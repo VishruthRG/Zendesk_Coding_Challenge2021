@@ -25,6 +25,7 @@ def print_all_ticket_data(no_of_tickets, resp):
     cols = ['ID', 'STATUS', 'SUBJECT', 'DESC', 'REQUESTED BY', 'ASSIGNED TO']
     df = pd.DataFrame(data, columns = cols)
     print(df)
+    print()
 
 def print_ticket_by_id(id_list, resp):
     data = []
@@ -74,9 +75,11 @@ def get_ids():
     except AssertionError:
         if response.status_code == 401:
             print("Credentials are incorrect, please verify credentials")
+            print()
             return
         else:
             print("Sorry! Looks like the API endpoint is wrong")
+            print()
     resp = response.json()
     no_of_tickets = count_tickets()
     id_arr = []
@@ -98,9 +101,11 @@ def get_all_tickets():
     except AssertionError:
         if response.status_code == 401:
             print("Credentials are incorrect, please verify credentials")
+            print()
             return
         else:
             print("Sorry! Looks like the API endpoint is wrong")
+            print()
             return
     resp = response.json()
     no_of_tickets = count_tickets()
@@ -117,9 +122,11 @@ def get_ticket_by_id(ticket_id):
     except AssertionError:
         if response.status_code == 401:
             print("Credentials are incorrect, please verify credentials")
+            print()
             return
         else:
             print("Sorry! Looks like the API endpoint is wrong")
+            print()
     resp = response.json()
     ids = params["ids"].split(',')
     int_ids = [int(i) for i in ids]
@@ -156,9 +163,11 @@ def paginate_results():
     except AssertionError:
         if response.status_code == 401:
             print("Credentials are incorrect, please verify credentials")
+            print()
             return
         else:
             print("Sorry! Looks like the API endpoint is wrong, please recheck")
+            print()
             return
     resp = response.json()
     print_all_ticket_data(25, resp)
