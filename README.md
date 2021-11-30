@@ -26,6 +26,8 @@ To test the project code for other accounts, i.e, view ticket data for other acc
 1. Export email, password, subdomain and API_KEY into environment variables `EMAIL`, `PSWD`, `SUBDOMAIN` and `API_KEY` respectively
 2. The python script will parse these variables from the environment variables and connect to API 
 
+(Subdomain that I used is commented in the API_endpoints.py file. Uncomment that line to use my subdomain)
+
 Now it should be possible to run the code on the required account.
 
 ## Note
