@@ -3,11 +3,16 @@ import json
 import pandas as pd
 from requests.api import request
 
-EMAIL = "vishruth@tamu.edu"
-PWD = "aBwQE4"
+#EMAIL = "vishruth@tamu.edu"
+#PWD = "aBwQE4"
 SUBDOMAIN = "zccvishruth"
-API_TOKEN = "nDoxGpD2brnxeAO1gfM8fxX5ppvN0EF6KTIMgcku"
+#API_TOKEN = "nDoxGpD2brnxeAO1gfM8fxX5ppvN0EF6KTIMgcku"
 TICKET_COUNT_API = "https://"+SUBDOMAIN+".zendesk.com/api/v2/tickets/count.json"
+
+def get_keys(path):
+    with open(path) as f:
+        return json.load(f)
+
 
 def print_all_ticket_data(no_of_tickets, resp):
 
@@ -50,7 +55,10 @@ def print_ticket_by_id(id_list, resp):
 
 def count_tickets():
     TICKET_COUNT_API = "https://"+SUBDOMAIN+".zendesk.com/api/v2/tickets/count.json"
-    ticket_count = requests.get(TICKET_COUNT_API, auth=("vishruth@tamu.edu", "aBwQE4"))
+    keys = get_keys(".secret/secrets.json")
+    EMAIL = keys['EMAIL_ID']
+    PWD = keys['PWD']
+    ticket_count = requests.get(TICKET_COUNT_API, auth=(EMAIL, PWD))
     ticket_count_resp = ticket_count.json()
     no_of_tickets = json.dumps(ticket_count_resp["count"]["value"])
     no_of_tickets = int(no_of_tickets)
@@ -61,7 +69,10 @@ def count_tickets():
 # Get all tickets of account
 def get_all_tickets():
     GET_ALL_TICKETS_API = "https://"+SUBDOMAIN+".zendesk.com/api/v2/tickets.json"
-    response = requests.get(GET_ALL_TICKETS_API, auth=("vishruth@tamu.edu", "aBwQE4"))
+    keys = get_keys(".secret/secrets.json")
+    EMAIL = keys['EMAIL_ID']
+    PWD = keys['PWD']
+    response = requests.get(GET_ALL_TICKETS_API, auth=(EMAIL, PWD))
     resp = response.json()
     no_of_tickets = count_tickets(TICKET_COUNT_API)
     print_all_ticket_data(no_of_tickets, resp)
@@ -72,7 +83,10 @@ def get_all_tickets():
 def get_ticket_by_id(ticket_id):
     params = {'ids':ticket_id}
     GET_TICKET_BY_ID = "https://"+SUBDOMAIN+".zendesk.com/api/v2/tickets/show_many.json"
-    response = requests.get(GET_TICKET_BY_ID, params=params, auth=("vishruth@tamu.edu", "aBwQE4"))
+    keys = get_keys(".secret/secrets.json")
+    EMAIL = keys['EMAIL_ID']
+    PWD = keys['PWD']
+    response = requests.get(GET_TICKET_BY_ID, params=params, auth=(EMAIL, PWD))
     resp = response.json()
     ids = params["ids"].split(',')
     int_ids = [int(i) for i in ids]
@@ -82,6 +96,9 @@ def get_ticket_by_id(ticket_id):
 def paginate_results():
     GET_TICKETS_PAGE = "https://"+SUBDOMAIN+".zendesk.com/api/v2/tickets.json"
     params = {'page[size]':'25'}
+    keys = get_keys(".secret/secrets.json")
+    EMAIL = keys['EMAIL_ID']
+    PWD = keys['PWD']
     response = requests.get(GET_TICKETS_PAGE, params=params, auth=(EMAIL,PWD))
     resp = response.json()
     print_all_ticket_data(25, resp)
@@ -97,7 +114,10 @@ def paginate_results():
             next_page = next_page[1:len(next_page) - 1]
             prev_page = prev_page[1:len(prev_page) - 1]
             params = {'page[size]':'25', 'page[after]':next_page}
-            response = requests.get(GET_TICKETS_PAGE, params=params, auth=('vishruth@tamu.edu', "aBwQE4"))
+            keys = get_keys(".secret/secrets.json")
+            EMAIL = keys['EMAIL_ID']
+            PWD = keys['PWD']
+            response = requests.get(GET_TICKETS_PAGE, params=params, auth=(EMAIL, PWD))
             resp = response.json()
             print_all_ticket_data(25, resp)
         else:
