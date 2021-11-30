@@ -29,7 +29,7 @@ To test the project code for other accounts, i.e, view ticket data for other acc
 
 Now it should be possible to run the code on the required account.
 
-### Note
+## Note
 For this project, I have not created a browser interface. It uses a CLI for the operations. The operations allowed are
 1. Viewing all tickets
 2. Viewing ticket details for selected tickets
