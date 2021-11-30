@@ -3,12 +3,7 @@ import json
 import pandas as pd
 from requests.api import request
 import API_endpoints as api
-
-
-
-def get_keys(path):
-    with open(path) as f:
-        return json.load(f)
+import os
 
 
 def print_all_ticket_data(no_of_tickets, resp):
@@ -51,10 +46,9 @@ def print_ticket_by_id(id_list, resp):
     print()
 
 def count_tickets():
-    keys = get_keys("../.secret/secrets.json")
-    EMAIL = keys['EMAIL_ID']
-    PWD = keys['PWD']
-    ticket_count = requests.get(api.TICKET_COUNT_API, auth=(EMAIL, PWD))
+    EMAIL = os.environ.get('EMAIL')
+    PSWD = os.environ.get('PSWD')
+    ticket_count = requests.get(api.TICKET_COUNT_API, auth=(EMAIL, PSWD))
     try:
         assert(ticket_count.status_code == 200)
         #print("Hurray! Connected!")
@@ -66,10 +60,9 @@ def count_tickets():
     return no_of_tickets
 
 def get_ids():
-    keys = get_keys("../.secret/secrets.json")
-    EMAIL = keys['EMAIL_ID']
-    PWD = keys['PWD']
-    response = requests.get(api.GET_ALL_TICKETS_API, auth=(EMAIL, PWD))
+    EMAIL = os.environ.get('EMAIL')
+    PSWD = os.environ.get('PSWD')
+    response = requests.get(api.GET_ALL_TICKETS_API, auth=(EMAIL, PSWD))
     try:
         assert(response.status_code == 200)
         #print("Hurray! Connected!")
@@ -87,10 +80,9 @@ def get_ids():
 
 # Get all tickets of account
 def get_all_tickets():
-    keys = get_keys("../.secret/secrets.json")
-    EMAIL = keys['EMAIL_ID']
-    PWD = keys['PWD']
-    response = requests.get(api.GET_ALL_TICKETS_API, auth=(EMAIL, PWD))
+    EMAIL = os.environ.get('EMAIL')
+    PSWD = os.environ.get('PSWD')
+    response = requests.get(api.GET_ALL_TICKETS_API, auth=(EMAIL, PSWD))
     try:
         assert(response.status_code == 200)
         #print("Hurray! Connected!")
@@ -105,10 +97,9 @@ def get_all_tickets():
 
 def get_ticket_by_id(ticket_id):
     params = {'ids':ticket_id}
-    keys = get_keys("../.secret/secrets.json")
-    EMAIL = keys['EMAIL_ID']
-    PWD = keys['PWD']
-    response = requests.get(api.GET_TICKET_BY_ID, params=params, auth=(EMAIL, PWD))
+    EMAIL = os.environ.get('EMAIL')
+    PSWD = os.environ.get('PSWD')
+    response = requests.get(api.GET_TICKET_BY_ID, params=params, auth=(EMAIL, PSWD))
     try:
         assert(response.status_code == 200)
         #print("Hurray! Connected!")
@@ -141,13 +132,12 @@ def get_ticket_by_id(ticket_id):
 
 def paginate_results():
     params = {'page[size]':'25'}
-    keys = get_keys("../.secret/secrets.json")
-    EMAIL = keys['EMAIL_ID']
-    PWD = keys['PWD']
-    response = requests.get(api.GET_TICKETS_PAGE, params=params, auth=(EMAIL,PWD))
+    EMAIL = os.environ.get('EMAIL')
+    PSWD = os.environ.get('PSWD')
+    response = requests.get(api.GET_TICKETS_PAGE, params=params, auth=(EMAIL,PSWD))
     try:
         assert(response.status_code == 200)
-        #print("Hurray! Connected!")
+        print("Hurray! Connected!")
     except AssertionError:
         print("Sorry! Looks like the API endpoint is wrong")
     resp = response.json()
@@ -164,10 +154,9 @@ def paginate_results():
             next_page = next_page[1:len(next_page) - 1]
             prev_page = prev_page[1:len(prev_page) - 1]
             params = {'page[size]':'25', 'page[after]':next_page}
-            keys = get_keys("../.secret/secrets.json")
-            EMAIL = keys['EMAIL_ID']
-            PWD = keys['PWD']
-            response = requests.get(api.GET_TICKETS_PAGE, params=params, auth=(EMAIL, PWD))
+            EMAIL = os.environ.get('EMAIL')
+            PSWD = os.environ.get('PSWD')
+            response = requests.get(api.GET_TICKETS_PAGE, params=params, auth=(EMAIL, PSWD))
             resp = response.json()
             print_all_ticket_data(25, resp)
         else:

@@ -23,9 +23,8 @@ Please note that this command takes an argument with one ticket ID for testing p
 
 ## Testing on other accounts
 To test the project code for other accounts, i.e, view ticket data for other accounts, the following steps have to be done
-1. Navigate to the `.secret/secrets.json` file
-2. Change the `EMAIL`, `PWD` and the `API_KEY` fields with the updated values
-3. Change the `SUBDOMAIN` value in the `API_endpoints` file
+1. Export email, password and API_KEY into environment variables `EMAIL`, `PSWD` and `API_KEY` respectively
+2. The python script will parse these variables from the environment variables and connect to API 
 
 Now it should be possible to run the code on the required account.
 
