@@ -17,8 +17,9 @@ python menu.py
 ## Unit tests
 Unit tests for this project are written using the unittest in-built python library. To run the sample test cases run
 ```
-python -m test_file
+python -m test_file <ticket ID>
 ```
+Please note that this command takes an argument with one ticket ID for testing purpose. Running this command with no command line arguments or more than one command line argument will throw an error.
 
 ## Testing on other accounts
 To test the project code for other accounts, i.e, view ticket data for other accounts, the following steps have to be done
