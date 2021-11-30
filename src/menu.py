@@ -1,4 +1,4 @@
-import start
+import driver as driver
 
 while (True):
     print("Zendesk ticket viewer main menu")
@@ -9,19 +9,11 @@ while (True):
     opt = input("Please enter your option: ")
 
     if opt == '1':
-        start.paginate_results()
+        driver.paginate_results()
         print()
     elif opt == '2':
-        ticket_id = input("Please enter ticket id to view details")
-        try:
-            assert(int(ticket_id) <= start.count_tickets())
-        except AssertionError:
-            print("Sorry! Ticket ID is not valid, please try again")
-            print()
-            continue
-        start.get_ticket_by_id(ticket_id)
+        ticket_id = input("Please enter ticket id to view details ")
+        driver.get_ticket_by_id(ticket_id)   
     else:
         print("Thank you for using Vishruth's Ticket Viewer")
         break
-
-
