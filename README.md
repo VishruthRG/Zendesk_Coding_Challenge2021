@@ -33,7 +33,7 @@ Now it should be possible to run the code on the required account.
 ## Note
 For this project, I have not created a browser interface. It uses a CLI for the operations. The operations allowed are
 1. Viewing all tickets
-2. Viewing ticket details for selected tickets
+2. Viewing ticket details for selected tickets (for this option the inputs have to be entered with comma for separation)
 
 Other features are:
 1. Ticket data displayed are: ID, Status, Subject, Description, Requestor and Assignee ID's
