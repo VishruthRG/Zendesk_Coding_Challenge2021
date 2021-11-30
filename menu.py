@@ -13,7 +13,12 @@ while (True):
         print()
     elif opt == '2':
         ticket_id = input("Please enter ticket id to view details")
-        print()
+        try:
+            assert(int(ticket_id) <= start.count_tickets())
+        except AssertionError:
+            print("Sorry! Ticket ID is not valid, please try again")
+            print()
+            continue
         start.get_ticket_by_id(ticket_id)
     else:
         print("Thank you for using Vishruth's Ticket Viewer")
