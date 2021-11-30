@@ -53,7 +53,12 @@ def count_tickets():
         assert(ticket_count.status_code == 200)
         #print("Hurray! Connected!")
     except AssertionError:
-        print("Sorry! Looks like the API endpoint is wrong")
+        if ticket_count.status_code == 401:
+            print("Credentials are incorrect, please verify credentials")
+            return
+        else:
+            print("Sorry! Looks like the API endpoint is wrong")
+    
     ticket_count_resp = ticket_count.json()
     no_of_tickets = json.dumps(ticket_count_resp["count"]["value"])
     no_of_tickets = int(no_of_tickets)
@@ -67,7 +72,11 @@ def get_ids():
         assert(response.status_code == 200)
         #print("Hurray! Connected!")
     except AssertionError:
-        print("Sorry! Looks like the API endpoint is wrong")
+        if response.status_code == 401:
+            print("Credentials are incorrect, please verify credentials")
+            return
+        else:
+            print("Sorry! Looks like the API endpoint is wrong")
     resp = response.json()
     no_of_tickets = count_tickets()
     id_arr = []
@@ -87,13 +96,15 @@ def get_all_tickets():
         assert(response.status_code == 200)
         #print("Hurray! Connected!")
     except AssertionError:
-        print("Sorry! Looks like the API endpoint is wrong")
+        if response.status_code == 401:
+            print("Credentials are incorrect, please verify credentials")
+            return
+        else:
+            print("Sorry! Looks like the API endpoint is wrong")
+            return
     resp = response.json()
     no_of_tickets = count_tickets()
     print_all_ticket_data(no_of_tickets, resp)
-
-
-
 
 def get_ticket_by_id(ticket_id):
     params = {'ids':ticket_id}
@@ -104,7 +115,11 @@ def get_ticket_by_id(ticket_id):
         assert(response.status_code == 200)
         #print("Hurray! Connected!")
     except AssertionError:
-        print("Sorry! Looks like the API endpoint is wrong")
+        if response.status_code == 401:
+            print("Credentials are incorrect, please verify credentials")
+            return
+        else:
+            print("Sorry! Looks like the API endpoint is wrong")
     resp = response.json()
     ids = params["ids"].split(',')
     int_ids = [int(i) for i in ids]
@@ -137,9 +152,14 @@ def paginate_results():
     response = requests.get(api.GET_TICKETS_PAGE, params=params, auth=(EMAIL,PSWD))
     try:
         assert(response.status_code == 200)
-        print("Hurray! Connected!")
+        #print("Hurray! Connected!")
     except AssertionError:
-        print("Sorry! Looks like the API endpoint is wrong")
+        if response.status_code == 401:
+            print("Credentials are incorrect, please verify credentials")
+            return
+        else:
+            print("Sorry! Looks like the API endpoint is wrong, please recheck")
+            return
     resp = response.json()
     print_all_ticket_data(25, resp)
 
