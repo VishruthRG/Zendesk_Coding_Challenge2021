@@ -3,10 +3,7 @@ import json
 import pandas as pd
 from requests.api import request
 
-#EMAIL = "vishruth@tamu.edu"
-#PWD = "aBwQE4"
 SUBDOMAIN = "zccvishruth"
-#API_TOKEN = "nDoxGpD2brnxeAO1gfM8fxX5ppvN0EF6KTIMgcku"
 TICKET_COUNT_API = "https://"+SUBDOMAIN+".zendesk.com/api/v2/tickets/count.json"
 
 def get_keys(path):
