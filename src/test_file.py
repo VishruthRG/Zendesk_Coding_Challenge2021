@@ -29,4 +29,7 @@ class TestAPI(unittest.TestCase):
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         TestAPI.ticketID = sys.argv.pop()
-    unittest.main()
+        unittest.main()
+    else:
+        print("Please enter ticket ID with command")
+    
