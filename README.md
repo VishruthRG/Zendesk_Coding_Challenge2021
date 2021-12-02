@@ -19,7 +19,7 @@ Unit tests for this project are written using the unittest in-built python libra
 ```
 python -m test_file <ticket ID>
 ```
-Please note that this command takes an argument with one ticket ID for testing purpose. Running this command with no command line arguments or more than one command line argument will throw an error.
+Please note that this command takes an argument with one or more ticket IDs separated by commas for testing purpose. Running this command with no command line arguments will throw an error.
 
 ## Testing on other accounts
 To test the project code for other accounts, i.e, view ticket data for other accounts, the following steps have to be done
