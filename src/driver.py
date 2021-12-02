@@ -10,7 +10,7 @@ def print_all_ticket_data(no_of_tickets, resp):
 
     data = []
     try:
-        for i in range(1, no_of_tickets):  
+        for i in range(1, no_of_tickets+1):  
             #url = json.dumps(resp["tickets"][int(i) - 1]["url"])
             id = json.dumps(resp["tickets"][int(i) - 1]["id"])
             status = json.dumps(resp["tickets"][int(i) - 1]["status"])
@@ -68,7 +68,7 @@ def count_tickets():
 def get_ids():
     EMAIL = os.environ.get('EMAIL')
     PSWD = os.environ.get('PSWD')
-    response = requests.get(api.GET_ALL_TICKETS_API, auth=(EMAIL, PSWD))
+    response = requests.get(api.GET_ALL_TICKETS, auth=(EMAIL, PSWD))
     try:
         assert(response.status_code == 200)
         #print("Hurray! Connected!")
@@ -94,7 +94,7 @@ def get_ids():
 def get_all_tickets():
     EMAIL = os.environ.get('EMAIL')
     PSWD = os.environ.get('PSWD')
-    response = requests.get(api.GET_ALL_TICKETS_API, auth=(EMAIL, PSWD))
+    response = requests.get(api.GET_ALL_TICKETS, auth=(EMAIL, PSWD))
     try:
         assert(response.status_code == 200)
         #print("Hurray! Connected!")
@@ -156,7 +156,7 @@ def paginate_results():
     params = {'page[size]':'25'}
     EMAIL = os.environ.get('EMAIL')
     PSWD = os.environ.get('PSWD')
-    response = requests.get(api.GET_TICKETS_PAGE, params=params, auth=(EMAIL,PSWD))
+    response = requests.get(api.GET_ALL_TICKETS, params=params, auth=(EMAIL,PSWD))
     try:
         assert(response.status_code == 200)
         #print("Hurray! Connected!")
@@ -176,6 +176,10 @@ def paginate_results():
     while(np != 'N'):
         np = input("View next page? Y = yes, N = no ")
         if resp["meta"]["has_more"] == False:
+            print("No more pages to display!")
+            print()
+            print("Redirecting you to main menu")
+            print()
             break
         if (np == "y" or np == "Y"):
             next_page = json.dumps(resp["meta"]["after_cursor"])
@@ -185,7 +189,7 @@ def paginate_results():
             params = {'page[size]':'25', 'page[after]':next_page}
             EMAIL = os.environ.get('EMAIL')
             PSWD = os.environ.get('PSWD')
-            response = requests.get(api.GET_TICKETS_PAGE, params=params, auth=(EMAIL, PSWD))
+            response = requests.get(api.GET_ALL_TICKETS, params=params, auth=(EMAIL, PSWD))
             resp = response.json()
             print_all_ticket_data(25, resp)
         else:

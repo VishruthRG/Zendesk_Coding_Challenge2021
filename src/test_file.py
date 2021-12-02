@@ -10,7 +10,7 @@ class TestAPI(unittest.TestCase):
         params = {'page[size]':'25'}
         EMAIL = os.environ.get('EMAIL')
         PSWD = os.environ.get('PSWD')
-        response = requests.get(api.GET_TICKETS_PAGE, params=params, auth=(EMAIL,PSWD))
+        response = requests.get(api.GET_ALL_TICKETS, params=params, auth=(EMAIL,PSWD))
         self.assertEqual(response.status_code, 200)
     
     def test_ticket_count_api(self):
@@ -19,15 +19,13 @@ class TestAPI(unittest.TestCase):
         ticket_count = requests.get(api.TICKET_COUNT_API, auth=(EMAIL, PSWD))
         self.assertEqual(ticket_count.status_code, 200)
 
-    def test_get_ticket_by_id_api(self):
-        #print(self.ticketID)
-        if self.ticketID not in driver.get_ids():
-            self.assertEqual(driver.get_ticket_by_id(self.ticketID), False)
-        else:
-            self.assertEqual(driver.get_ticket_by_id(self.ticketID), True)
-        
-        
-
+    def test_count_ticket_api(self):
+        params = {'ids':self.ticketID}
+        EMAIL = os.environ.get('EMAIL')
+        PSWD = os.environ.get('PSWD')
+        response = requests.get(api.GET_TICKET_BY_ID, params=params, auth=(EMAIL,PSWD))
+        self.assertEqual(response.status_code, 200)
+    
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         TestAPI.ticketID = sys.argv.pop()
